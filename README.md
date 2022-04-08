@@ -1,27 +1,17 @@
+# Laravel Filament Ban
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
+# This is my package filament-ban
 
-# :package_description
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ttungbmt/filament-ban.svg?style=flat-square)](https://packagist.org/packages/ttungbmt/filament-ban)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/ttungbmt/filament-ban/run-tests?label=tests)](https://github.com/ttungbmt/filament-ban/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/ttungbmt/filament-ban/Check%20&%20fix%20styling?label=code%20style)](https://github.com/ttungbmt/filament-ban/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/ttungbmt/filament-ban.svg?style=flat-square)](https://packagist.org/packages/ttungbmt/filament-ban)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/run-tests?label=tests)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/Check%20&%20fix%20styling?label=code%20style)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
-
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this skeleton.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/filament-ban.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/filament-ban)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
@@ -32,46 +22,53 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require ttungbmt/filament-ban
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
+php artisan vendor:publish --tag="filament-ban-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
+php artisan vendor:publish --tag="filament-ban-config"
 ```
 
-This is the contents of the published config file:
+
+### Prepare bannable model
 
 ```php
-return [
-];
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable implements BannableContract
+{
+    use Bannable;
+}
 ```
 
-Optionally, you can publish the views using
+### Prepare bannable model database table
 
-```bash
-php artisan vendor:publish --tag=":package_slug-views"
-```
+Bannable model must have `nullable timestamp` column named `banned_at`. This value used as flag and simplify checks if user was banned. If you are trying to make default Laravel User model to be bannable you can use example below.
 
-## Usage
+### Register Ban Actions in Nova Resource
+
+Register `Ban` and `Unban` actions inside your `Bannable` Model's Resource.
 
 ```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
-```
-
-## Testing
-
-```bash
-composer test
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->prependBulkActions([
+                Ban::make('ban'),
+                Unban::make('unban'),
+            ]);
+    }
 ```
 
 ## Changelog
@@ -88,7 +85,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Truong Thanh Tung](https://github.com/ttungbmt)
 - [All Contributors](../../contributors)
 
 ## License
