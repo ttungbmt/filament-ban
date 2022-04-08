@@ -1,5 +1,9 @@
 # Laravel Filament Ban
 
+## Introduction
+
+Behind the scenes [cybercog/laravel-ban](https://github.com/cybercog/laravel-ban) is used.
+
 ## Installation
 
 You can install the package via composer:
