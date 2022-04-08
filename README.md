@@ -41,7 +41,7 @@ Bannable model must have `nullable timestamp` column named `banned_at`. This val
 
 ### Register Ban Actions in Nova Resource
 
-Register `Ban` and `Unban` actions inside your `Bannable` Model's Resource.
+Register `Ban` and `Unban` actions inside your Model's Resource.
 
 ```php
     public static function table(Table $table): Table
