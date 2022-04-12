@@ -4,6 +4,8 @@
 
 Behind the scenes [cybercog/laravel-ban](https://github.com/cybercog/laravel-ban) is used.
 
+![ban_user](https://user-images.githubusercontent.com/12232155/162865596-f96984cd-6e82-41c6-abfa-367eb49247a8.png)
+
 ## Installation
 
 You can install the package via composer:
@@ -22,6 +24,7 @@ php artisan migrate
 You can publish the config file with:
 
 ```bash
+
 php artisan vendor:publish --tag="filament-ban-config"
 ```
 
@@ -52,8 +55,8 @@ Register `Ban` and `Unban` actions inside your Model's Resource.
     {
         return $table
             ->prependBulkActions([
-                Ban::make('ban'),
-                Unban::make('unban'),
+                \FilamentPro\FilamentBan\Actions\Ban::make('ban'),
+                \FilamentPro\FilamentBan\Actions\Unban::make('unban'),
             ]);
     }
 ```
