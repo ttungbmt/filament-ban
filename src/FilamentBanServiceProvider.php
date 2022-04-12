@@ -19,6 +19,6 @@ class FilamentBanServiceProvider extends PackageServiceProvider
             ->name('filament-ban')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('add_banned_at_column_to_users_table');
+            ->hasMigrations(['create_bans_table', 'add_banned_at_column_to_users_table']);
     }
 }
