@@ -14,12 +14,21 @@ class Ban extends BulkAction
 
     protected string | Closure | null $icon = 'heroicon-o-lock-closed';
 
+    public static function make(?string $name = 'ban'): static
+    {
+        return parent::make($name);
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->modalWidth = 'sm';
-        $this->action(Closure::fromCallable([$this, 'handle']));
+        $this
+            ->requiresConfirmation()
+            ->action($this->handle(...))
+            ->form($this->getFormSchema())
+        ;
     }
 
     protected function handle(Collection $records, array $data): void

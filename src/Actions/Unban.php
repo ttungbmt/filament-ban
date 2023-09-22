@@ -13,11 +13,16 @@ class Unban extends BulkAction
 
     protected string | Closure | null $icon = 'heroicon-o-lock-open';
 
+    public static function make(?string $name = 'unban'): static
+    {
+        return parent::make($name);
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->action(Closure::fromCallable([$this, 'handle']));
+        $this->requiresConfirmation();
+        $this->action($this->handle(...));
     }
 
     protected function handle(Collection $records, array $data): void
