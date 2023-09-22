@@ -3,16 +3,13 @@
 namespace FilamentPro\FilamentBan\Actions;
 
 use Closure;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\TextInput;
-use Filament\Http\Livewire\Concerns\CanNotify;
+use Filament\Forms;
+use Filament\Notifications\Notification;
 use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Collection;
 
 class Ban extends BulkAction
 {
-    use CanNotify;
-
     protected bool | Closure $shouldDeselectRecordsAfterCompletion = true;
 
     protected string | Closure | null $icon = 'heroicon-o-lock-closed';
@@ -23,22 +20,25 @@ class Ban extends BulkAction
         $this->action(Closure::fromCallable([$this, 'handle']));
     }
 
-    protected function handle(Collection $records, array $data)
+    protected function handle(Collection $records, array $data): void
     {
         $records->each->ban([
             'comment' => $data['comment'],
             'expired_at' => $data['expired_at'],
         ]);
 
-        $this->notify('success', 'Models were banned!');
+        Notification::make()
+            ->title('Models were banned!')
+            ->success()
+            ->send();
     }
 
     public function getFormSchema(): array
     {
         return [
-            TextInput::make('comment'),
+            Forms\Components\TextInput::make('comment'),
 
-            DateTimePicker::make('expired_at')->label(__('Expires At')),
+            Forms\Components\DateTimePicker::make('expired_at')->label(__('Expires At')),
         ];
     }
 }
