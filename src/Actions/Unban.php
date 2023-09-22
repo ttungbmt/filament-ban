@@ -11,7 +11,6 @@ class Unban extends BulkAction
 {
     protected bool | Closure $shouldDeselectRecordsAfterCompletion = true;
 
-
     protected string | Closure | null $icon = 'heroicon-o-lock-open';
 
     public static function make(?string $name = 'unban'): static

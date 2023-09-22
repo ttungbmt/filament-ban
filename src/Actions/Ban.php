@@ -27,8 +27,7 @@ class Ban extends BulkAction
 
         $this
             ->action($this->handle(...))
-            ->form($this->getFormSchema())
-        ;
+            ->form($this->getFormSchema());
     }
 
     protected function handle(Collection $records, array $data): void
