@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\HigherOrderCollectionProxy\\<string, Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\>\\:\\:ban\\(\\)\\.$#"
+			count: 1
+			path: src/Actions/Ban.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\HigherOrderCollectionProxy\\<string, Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\>\\:\\:unban\\(\\)\\.$#"
+			count: 1
+			path: src/Actions/Unban.php
