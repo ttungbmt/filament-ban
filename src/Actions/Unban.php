@@ -11,6 +11,7 @@ class Unban extends BulkAction
 {
     protected bool | Closure $shouldDeselectRecordsAfterCompletion = true;
 
+
     protected string | Closure | null $icon = 'heroicon-o-lock-open';
 
     public static function make(?string $name = 'unban'): static
@@ -21,8 +22,9 @@ class Unban extends BulkAction
     protected function setUp(): void
     {
         parent::setUp();
-        $this->requiresConfirmation();
-        $this->action($this->handle(...));
+        $this
+            ->requiresConfirmation()
+            ->action($this->handle(...));
     }
 
     protected function handle(Collection $records, array $data): void
