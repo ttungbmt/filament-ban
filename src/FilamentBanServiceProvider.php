@@ -4,7 +4,6 @@ namespace FilamentPro\FilamentBan;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use FilamentPro\FilamentBan\Commands\FilamentBanCommand;
 
 class FilamentBanServiceProvider extends PackageServiceProvider
 {

@@ -1,9 +1,10 @@
 <?php
+
 namespace FilamentPro\FilamentBan\Actions;
 
+use Closure;
 use Filament\Http\Livewire\Concerns\CanNotify;
 use Filament\Tables\Actions\BulkAction;
-use Closure;
 use Illuminate\Database\Eloquent\Collection;
 
 class Unban extends BulkAction

@@ -2,9 +2,9 @@
 
 namespace FilamentPro\FilamentBan\Tests;
 
+use FilamentPro\FilamentBan\FilamentBanServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use FilamentPro\FilamentBan\FilamentBanServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'FilamentPro\\FilamentBan\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'FilamentPro\\FilamentBan\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
