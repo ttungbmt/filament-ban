@@ -21,14 +21,6 @@ php artisan vendor:publish --tag="filament-ban-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
-
-```bash
-
-php artisan vendor:publish --tag="filament-ban-config"
-```
-
-
 ### Prepare bannable model
 
 ```php
@@ -55,8 +47,8 @@ Register `Ban` and `Unban` actions inside your Model's Resource.
     {
         return $table
             ->prependBulkActions([
-                \FilamentPro\FilamentBan\Actions\Ban::make('ban'),
-                \FilamentPro\FilamentBan\Actions\Unban::make('unban'),
+                \FilamentPro\FilamentBan\Actions\Ban::make(),
+                \FilamentPro\FilamentBan\Actions\Unban::make(),
             ]);
     }
 ```
