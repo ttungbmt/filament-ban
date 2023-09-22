@@ -15,10 +15,12 @@ class Unban extends BulkAction
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->action(Closure::fromCallable([$this, 'handle']));
     }
 
-    protected function handle(Collection $records, array $data)
+    protected function handle(Collection $records, array $data): void
     {
         $records->each->unban();
 

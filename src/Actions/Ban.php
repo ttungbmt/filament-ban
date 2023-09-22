@@ -16,6 +16,8 @@ class Ban extends BulkAction
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->modalWidth = 'sm';
         $this->action(Closure::fromCallable([$this, 'handle']));
     }
