@@ -46,7 +46,7 @@ class User extends Authenticatable implements BannableContract
 
 Bannable model must have `nullable timestamp` column named `banned_at`. This value used as flag and simplify checks if user was banned. If you are trying to make default Laravel User model to be bannable you can use example below.
 
-### Register Ban Actions in Nova Resource
+### Register Ban Actions in Filament Resource
 
 Register `Ban` and `Unban` actions inside your Model's Resource.
 
