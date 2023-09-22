@@ -15,7 +15,7 @@ class Ban extends BulkAction
     protected string | Closure | null $icon = 'heroicon-o-lock-closed';
 
     protected string | Closure | null $modalWidth = 'sm';
-    
+
     public static function make(?string $name = 'ban'): static
     {
         return parent::make($name);
@@ -50,6 +50,7 @@ class Ban extends BulkAction
             Forms\Components\TextInput::make('comment'),
 
             Forms\Components\DateTimePicker::make('expired_at')
+                ->native(false)
                 ->minDate(now())
                 ->label(__('Expires At')),
         ];
