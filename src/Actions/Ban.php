@@ -5,6 +5,7 @@ namespace FilamentPro\FilamentBan\Actions;
 use Closure;
 use Filament\Forms;
 use Filament\Notifications\Notification;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -14,7 +15,7 @@ class Ban extends BulkAction
 
     protected string | Closure | null $icon = 'heroicon-o-lock-closed';
 
-    protected string | Closure | null $modalWidth = 'sm';
+    protected MaxWidth | string | Closure | null $modalWidth = 'sm';
 
     public static function make(?string $name = 'ban'): static
     {
