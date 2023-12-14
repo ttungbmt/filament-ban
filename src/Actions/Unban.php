@@ -1,28 +1,38 @@
 <?php
+
 namespace FilamentPro\FilamentBan\Actions;
 
-use Filament\Http\Livewire\Concerns\CanNotify;
-use Filament\Tables\Actions\BulkAction;
 use Closure;
+use Filament\Notifications\Notification;
+use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Collection;
 
 class Unban extends BulkAction
 {
-    use CanNotify;
-
     protected bool | Closure $shouldDeselectRecordsAfterCompletion = true;
 
     protected string | Closure | null $icon = 'heroicon-o-lock-open';
 
-    protected function setUp(): void
+    public static function make(?string $name = 'unban'): static
     {
-        $this->action(Closure::fromCallable([$this, 'handle']));
+        return parent::make($name);
     }
 
-    protected function handle(Collection $records, array $data)
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this
+            ->requiresConfirmation()
+            ->action($this->handle(...));
+    }
+
+    protected function handle(Collection $records, array $data): void
     {
         $records->each->unban();
 
-        $this->notify('success', 'Models were unbanned!');
+        Notification::make()
+            ->title('Models were unbanned!')
+            ->success()
+            ->send();
     }
 }

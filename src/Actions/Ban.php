@@ -1,46 +1,58 @@
 <?php
+
 namespace FilamentPro\FilamentBan\Actions;
 
 use Closure;
-use Filament\Forms\Components\TextInput;
-use Filament\Http\Livewire\Concerns\CanNotify;
-use Filament\Resources\Resource;
+use Filament\Forms;
+use Filament\Notifications\Notification;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\BulkAction;
 use Illuminate\Database\Eloquent\Collection;
-use Filament\Forms\Components\DateTimePicker;
 
 class Ban extends BulkAction
 {
-    use CanNotify;
-
     protected bool | Closure $shouldDeselectRecordsAfterCompletion = true;
 
     protected string | Closure | null $icon = 'heroicon-o-lock-closed';
 
-    protected function setUp(): void
+    protected MaxWidth | string | Closure | null $modalWidth = 'sm';
+
+    public static function make(?string $name = 'ban'): static
     {
-        $this->modalWidth = 'sm';
-        $this->action(Closure::fromCallable([$this, 'handle']));
+        return parent::make($name);
     }
 
-    protected function handle(Collection $records, array $data)
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this
+            ->action($this->handle(...))
+            ->form($this->getFormSchema());
+    }
+
+    protected function handle(Collection $records, array $data): void
     {
         $records->each->ban([
             'comment' => $data['comment'],
             'expired_at' => $data['expired_at'],
         ]);
 
-        $this->notify('success', 'Models were banned!');
+        Notification::make()
+            ->title('Models were banned!')
+            ->success()
+            ->send();
     }
 
     public function getFormSchema(): array
     {
         return [
-            TextInput::make('comment'),
+            Forms\Components\TextInput::make('comment'),
 
-            DateTimePicker::make('expired_at')->label(__('Expires At')),
+            Forms\Components\DateTimePicker::make('expired_at')
+                ->native(false)
+                ->minDate(now())
+                ->label(__('Expires At')),
         ];
     }
-
-
 }
