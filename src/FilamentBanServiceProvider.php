@@ -4,7 +4,6 @@ namespace FilamentPro\FilamentBan;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use FilamentPro\FilamentBan\Commands\FilamentBanCommand;
 
 class FilamentBanServiceProvider extends PackageServiceProvider
 {
@@ -12,6 +11,6 @@ class FilamentBanServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('filament-ban')
-            ->hasMigrations(['create_bans_table', 'add_banned_at_column_to_users_table']);
+            ->hasMigrations(['add_banned_at_column_to_users_table']);
     }
 }
